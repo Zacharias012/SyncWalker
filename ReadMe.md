@@ -12,6 +12,8 @@ Wichtig:
 Es erfolgt ausschließlich ein Hinzufügen fehlender Dateien.
 Eine Löschung bestehender Dateien wird unter keinen Umständen durchgeführt!
 
+---
+
 ## Setup
 
 Führe die folgenden Schritte aus, um das Projekt korrekt zu konfigurieren.
@@ -43,3 +45,47 @@ Passe beide Variablen an dein lokales System an:
   Definiert das Zielverzeichnis.
   In dieses Verzeichnis werden alle Dateien kopiert, die in der Quelle existieren, aber im Ziel fehlen.
 
+---
+
+## Voraussetzungen
+
+Bevor du das Projekt startest, stelle sicher, dass folgende Software installiert ist:
+
+* **Java 21** - Prüfen mit:
+
+  ```bash
+  java -version
+  ```
+
+* **Maven 3.5** - Prüfen mit:
+
+  ```bash
+  mvn -version
+  ```
+
+---  
+
+## Running
+
+Dieses Projekt kann über das Terminal gebaut und gestartet werden.
+
+### 1. Projekt bauen
+
+```bash
+mvn clean package
+```
+
+### 2. Ausführbares JAR starten
+
+```bash
+java -jar target/SyncWalker-1.0-SNAPSHOT.jar
+```
+
+### 3. Konfigurationsdatei anpassen
+
+```bash
+nano config.properties
+```
+
+* `folder_source` → Quelle (Source of Truth)
+* `folder_target` → Zielverzeichnis (fehlende Dateien werden hierher kopiert)
