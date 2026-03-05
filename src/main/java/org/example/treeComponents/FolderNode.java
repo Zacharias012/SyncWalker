@@ -1,4 +1,4 @@
-package org.example.components;
+package org.example.treeComponents;
 
 import java.util.List;
 import java.util.ArrayList;

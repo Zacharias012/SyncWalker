@@ -1,4 +1,4 @@
-package org.example.components;
+package org.example.treeComponents;
 
 public class Node {
     protected String name;

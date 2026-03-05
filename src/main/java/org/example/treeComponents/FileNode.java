@@ -1,4 +1,4 @@
-package org.example.components;
+package org.example.treeComponents;
 
 public class FileNode extends Node {
     public FileNode(String name) {

@@ -1,6 +1,5 @@
-package org.example;
+package org.example.treeComponents;
 
-import org.example.components.*;
 import java.io.IOException;
 import java.nio.file.*;
 

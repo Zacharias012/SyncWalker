@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.components.*;
+import org.example.treeComponents.*;
 
 import java.io.FileInputStream;
 import java.nio.file.Paths;
@@ -14,16 +14,12 @@ public class Main {
         String folderSource = props.getProperty("folder_source");
         String folderTarget = props.getProperty("folder_target");
 
-        TreeBuilder treeBuilder = new TreeBuilder(Paths.get(folderSource));
-        System.out.println("");
-        System.out.println("Printing source");
-        System.out.println("");
-        treeBuilder.printTree();
+        TreeBuilder treeBuilderSource = new TreeBuilder(Paths.get(folderSource));
+        //treeBuilderSource.printTree();
 
         TreeBuilder treeBuilderTarget = new TreeBuilder(Paths.get(folderTarget));
-        System.out.println("");
-        System.out.println("Printing target");
-        System.out.println("");
-        treeBuilderTarget.printTree();
+        //treeBuilderTarget.printTree();
+
+
     }
 }
