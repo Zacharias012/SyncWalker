@@ -25,6 +25,9 @@ public class Main {
         //treeBuilderSource.printTree();
         TreeBuilder treeBuilderTarget = new TreeBuilder(Paths.get(folderTarget));
         //treeBuilderTarget.printTree();
+
+        Calculator calculator = new Calculator();
+        calculator.calculateDiff(treeBuilderSource, treeBuilderTarget);
     }
 
     public static void loadProperties() throws IOException {
