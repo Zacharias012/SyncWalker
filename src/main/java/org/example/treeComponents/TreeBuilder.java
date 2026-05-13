@@ -55,4 +55,51 @@ public class TreeBuilder {
     public FolderNode getRoot() {
         return iniFolderNode;
     }
+
+    /**
+     * Synchronisiert den erkannten Baum in ein Zielverzeichnis.
+     * Fehlende Ordner und Dateien werden erstellt/kopiert.
+     * Bestehende Dateien werden nicht überschrieben oder gelöscht.
+     *
+     * @param sourceBase Der Pfad der Quelle
+     * @param targetBase Der Pfad des Zielverzeichnisses
+     * @throws IOException Wenn Fehler beim Kopieren auftreten
+     */
+    public void syncToTarget(Path sourceBase, Path targetBase) throws IOException {
+        syncNode(iniFolderNode, sourceBase, targetBase);
+    }
+
+    private void syncNode(Node node, Path sourceBase, Path targetBase) throws IOException {
+        // Berechne den relativen Pfad vom Quell-Wurzelverzeichnis
+        if (node instanceof FolderNode folder) {
+            for (Node child : folder.getChildren()) {
+                syncRecursive(child, Paths.get(""), targetBase, sourceBase);
+            }
+        }
+    }
+
+    private void syncRecursive(Node node, Path relativePath, Path targetBase, Path sourceBase) throws IOException {
+        Path currentRelativePath = relativePath.resolve(node.getName());
+        Path targetPath = targetBase.resolve(currentRelativePath);
+        Path sourcePath = sourceBase.resolve(currentRelativePath);
+
+        if (node instanceof FolderNode folder) {
+            // Erstelle Verzeichnis im Ziel, falls nicht vorhanden
+            if (!Files.exists(targetPath)) {
+                Files.createDirectories(targetPath);
+                System.out.println("Ordner erstellt: " + targetPath);
+            }
+
+            // Rekursion für Kinder
+            for (Node child : folder.getChildren()) {
+                syncRecursive(child, currentRelativePath, targetBase, sourceBase);
+            }
+        } else if (node instanceof FileNode) {
+            // Kopiere Datei, falls im Ziel nicht vorhanden
+            if (!Files.exists(targetPath)) {
+                Files.copy(sourcePath, targetPath, StandardCopyOption.COPY_ATTRIBUTES);
+                System.out.println("Datei kopiert: " + targetPath);
+            }
+        }
+    }
 }
