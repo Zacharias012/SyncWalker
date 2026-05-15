@@ -13,8 +13,14 @@ public class Main {
         props.load(new FileInputStream("config.properties"));
         String folderSource = props.getProperty("folder_source");
         String folderTarget = props.getProperty("folder_target");
+        String formats = props.getProperty("file_format_copied", "");
+
+        java.util.List<String> allowedExtensions = java.util.Arrays.stream(formats.split("[,\\s]+"))
+                .filter(s -> !s.isEmpty())
+                .toList();
 
         TreeBuilder treeBuilder = new TreeBuilder(Paths.get(folderSource));
+        treeBuilder.setAllowedExtensions(allowedExtensions);
         System.out.println("");
         System.out.println("Printing source");
         System.out.println("");

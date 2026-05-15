@@ -32,6 +32,7 @@ Füge folgenden Inhalt in die Datei ein:
 ```
 folder_source=/home/you/sourceFolder
 folder_target=/home/you/sourceTarget
+file_format_copied=.txt, .pdf
 ```
 
 ### 3. Pfade anpassen
@@ -44,6 +45,25 @@ Passe beide Variablen an dein lokales System an:
 * **`folder_target`**
   Definiert das Zielverzeichnis.
   In dieses Verzeichnis werden alle Dateien kopiert, die in der Quelle existieren, aber im Ziel fehlen.
+
+* **`file_format_copied`** (Optional)
+  Ermöglicht das Filtern nach bestimmten Dateiformaten. Wenn dieser Wert gesetzt ist, werden nur Dateien mit den angegebenen Endungen synchronisiert. Werden keine Formate angegeben, werden alle Dateien kopiert!
+
+---
+
+### Beispiel für Dateifilter
+
+Um nur bestimmte Formate wie `.txt` und `.pdf` zu synchronisieren, gib diese einfach durch Leerzeichen oder Kommas getrennt in der `config.properties` an:
+
+```properties
+file_format_copied=.txt .pdf
+```
+Oder alternativ:
+```properties
+file_format_copied=.txt, .pdf
+```
+
+Werden keine Formate angegeben, werden alle Dateien kopiert!
 
 ---
 
@@ -89,3 +109,4 @@ nano config.properties
 
 * `folder_source` → Quelle (Source of Truth)
 * `folder_target` → Zielverzeichnis (fehlende Dateien werden hierher kopiert)
+* `file_format_copied` → Dateiformate die kopiert werden sollen

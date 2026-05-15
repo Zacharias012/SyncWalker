@@ -6,9 +6,15 @@ import java.nio.file.*;
 public class TreeBuilder {
 
     private FolderNode iniFolderNode;
+    private java.util.Set<String> allowedExtensions;
 
     public TreeBuilder(Path path) throws IOException {
         this.iniFolderNode = buildTree(path);
+        this.allowedExtensions = new java.util.HashSet<>();
+    }
+
+    public void setAllowedExtensions(java.util.List<String> extensions) {
+        this.allowedExtensions = new java.util.HashSet<>(extensions);
     }
 
     private FolderNode buildTree(Path path) throws IOException {
@@ -95,6 +101,15 @@ public class TreeBuilder {
                 syncRecursive(child, currentRelativePath, targetBase, sourceBase);
             }
         } else if (node instanceof FileNode) {
+            // Prüfe Dateiendung, falls Filter gesetzt sind
+            if (!allowedExtensions.isEmpty()) {
+                boolean isAllowed = allowedExtensions.stream()
+                        .anyMatch(ext -> node.getName().toLowerCase().endsWith(ext.toLowerCase()));
+                if (!isAllowed) {
+                    return; // Datei überspringen
+                }
+            }
+
             // Kopiere Datei, falls im Ziel nicht vorhanden
             if (!Files.exists(targetPath)) {
                 Files.copy(sourcePath, targetPath, StandardCopyOption.COPY_ATTRIBUTES);
